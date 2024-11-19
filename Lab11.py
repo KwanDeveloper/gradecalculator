@@ -2,6 +2,8 @@ import matplotlib.pyplot as plt
 import os
 import math
 
+total_points = 1000
+
 def get_assignment_name(assignment_id):
     with open("data/assignments.txt", "r") as f:
         lines = f.read().split("\n")
@@ -56,6 +58,9 @@ def get_assignment_statistics(assignment):
             count += 1
     return [min_grade, max_grade, count, total]
 
+def get_weighted_grade():
+    pass
+
 def do_option():
     option = get_option()
     if option == "1":
@@ -66,9 +71,12 @@ def do_option():
             return
         count, total = 0, 0
         for assignment_id, grade in get_submissions_for_student(student_id).items():
-            total += grade
+            assignment_name = get_assignment_name(assignment_id)
+            assignment = get_assignment(assignment_name)
+            weight = ((grade / 100) * assignment[1]) * 100
+            total += weight
             count += 1
-        print(f"{int(round(total // count))}%")
+        print(f"{int(round(total // 1000))}%")
     elif option == "2":
         name = input("What is the assignment name: ")
         assignment = get_assignment(name.strip().title())
