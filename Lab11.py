@@ -2,12 +2,21 @@ import matplotlib.pyplot as plt
 import os
 import math
 
+def get_assignment_name(assignment_id):
+    with open("data/assignments.txt", "r") as f:
+        lines = f.read().split("\n")
+        for i, line in enumerate(lines):
+            if line.strip() == str(assignment_id):
+                assignment_name = str(lines[i - 1].strip())
+                return assignment_name
+
 def get_assignment(name):
     with open("data/assignments.txt", "r") as f:
         lines = f.read().split("\n")
         for i, line in enumerate(lines):
             if line.strip() == name:
-                assignment_id, total = int(lines[i + 1].strip()), int(lines[i + 2].strip())
+                assignment_id = int(lines[i + 1].strip())
+                total = int(lines[i + 2].strip())
                 return [assignment_id, total]
 
 def get_students():
@@ -63,7 +72,6 @@ def do_option():
     elif option == "2":
         name = input("What is the assignment name: ")
         assignment = get_assignment(name.strip().title())
-        min_grade, max_grade, count, total = None, None, 0, 0
         if not assignment:
             print("Assignment not found")
             return
