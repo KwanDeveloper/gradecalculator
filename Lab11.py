@@ -76,7 +76,7 @@ def do_option():
             weight = ((grade / 100) * assignment[1]) * 100
             total += weight
             count += 1
-        print(f"{int(round(total // 1000))}%")
+        print(f"{int(round(total / 1000))}%")
     elif option == "2":
         name = input("What is the assignment name: ")
         assignment = get_assignment(name.strip().title())
